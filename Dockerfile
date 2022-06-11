@@ -1,0 +1,6 @@
+FROM archlinux
+MAINTAINER Tru Huynh <tru@pasteur.fr>
+
+RUN pacman -Syu --noconfirm --needed base-devel
+RUN curl 'https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=fdm-git' > PKGBUILD && makepkg 
+RUN date +"%Y-%m-%d-%H%M" > /last_update
