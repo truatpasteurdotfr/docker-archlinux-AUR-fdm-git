@@ -1,4 +1,4 @@
-FROM archlinux
+FROM archlinux as build
 MAINTAINER Tru Huynh <tru@pasteur.fr>
 
 RUN pacman -Syu --noconfirm --needed base-devel
@@ -9,7 +9,13 @@ RUN echo "build ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 RUN pacman -Syu --noconfirm tdb git
 USER build
 RUN cd /tmp && curl 'https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=fdm-git' > PKGBUILD && makepkg 
-USER root
-#RUN pacman -U /tmp/*.pkg.tar.xz
+# /tmp/fdm-git-20220601.fe7bc35-1-x86_64.pkg.tar.zst
 #RUN rm -rf ~build && userdel build 
+#
+# copy to target container
+USER root
+FROM archlinux
+COPY --from=build /tmp/fdm-git*.x86_64.pkg.tar.zst .
+# install in target container
+RUN pacman -U fdm-git*.x86_64.pkg.tar.zst 
 RUN date +"%Y-%m-%d-%H%M" > /last_update
