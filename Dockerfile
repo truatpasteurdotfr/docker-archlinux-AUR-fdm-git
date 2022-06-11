@@ -15,8 +15,8 @@ RUN cd /tmp && curl 'https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=fdm
 # copy to target container
 USER root
 FROM archlinux
-COPY --from=build /tmp/fdm-git*.x86_64.pkg.tar.zst .
+COPY --from=build /tmp/fdm-git*.x86_64.pkg.tar.zst /
 # install in target container
 RUN pacman -Syu --noconfirm 
-RUN pacman -U fdm-git*
+RUN pacman -U /fdm-git*
 RUN date +"%Y-%m-%d-%H%M" > /last_update
