@@ -5,7 +5,8 @@ RUN pacman -Syu --noconfirm --needed base-devel
 # root can not build, using a user with sudo priv.
 RUN useradd build && usermod -L build
 RUN echo "build ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-
+# fdm-git build requirements:
+RUN pacman -Syu --noconfirm tdb git
 USER build
 RUN cd /tmp && curl 'https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=fdm-git' > PKGBUILD && makepkg 
 USER root
