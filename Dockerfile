@@ -17,5 +17,6 @@ USER root
 FROM archlinux
 COPY --from=build /tmp/fdm-git*.x86_64.pkg.tar.zst .
 # install in target container
-RUN pacman -U fdm-git*.x86_64.pkg.tar.zst 
+RUN pacman -Syu --noconfirm 
+RUN pacman -U fdm-git*
 RUN date +"%Y-%m-%d-%H%M" > /last_update
