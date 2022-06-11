@@ -10,6 +10,6 @@ RUN pacman -Syu --noconfirm tdb git
 USER build
 RUN cd /tmp && curl 'https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=fdm-git' > PKGBUILD && makepkg 
 USER root
-RUN pacman -U /tmp/*.pkg.tar.xz
-RUN rm -rf ~build && userdel build 
+#RUN pacman -U /tmp/*.pkg.tar.xz
+#RUN rm -rf ~build && userdel build 
 RUN date +"%Y-%m-%d-%H%M" > /last_update
